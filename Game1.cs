@@ -85,7 +85,7 @@ namespace Maxwell_Sim
             Texture2D texture = new Texture2D(GraphicsDevice, 1, 1);
             texture.SetData<Color>(new Color[]{ Color.Red});
 
-            menu.LoadContent(texture);
+            menu.LoadContent(Content);
 
             #region Before
             /*

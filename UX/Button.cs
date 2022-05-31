@@ -51,7 +51,7 @@ namespace Maxwell_Sim
         public void Draw(SpriteBatch sp, Rectangle? source, float angle, Vector2 scale, SpriteEffects effect, float depthLayer, 
             Action<SpriteBatch, Texture2D, RectangleF, RectangleF?, float, Vector2, SpriteEffects, float> DrawFunc)
         {
-            Vector2 origin = buttonAlign.GetOrigin() * buttonTexture.Bounds.Size.ToVector2();
+            Vector2 origin = buttonAlign.GetOrigin() * (source.HasValue ? source.Value.Size.ToVector2() : buttonTexture.Bounds.Size.ToVector2());
             DrawFunc(sp, buttonTexture, buttonRect, source, angle, origin, effect, depthLayer);
         }
 

@@ -17,30 +17,35 @@ namespace Maxwell_Sim
         Canvas menuCanvas;
         Button[] buttons;
 
+        Texture2D[] textures;
+
         public ObjectsMenu(GameWindow window, GraphicsDevice gd, RectangleF bounds)
         {
             menuCanvas = new Canvas(window, gd, bounds);
             buttons = new Button[6];
+            textures = new Texture2D[6];
 
 
         }
 
-
-        public void LoadContent(Texture2D texture)
+        private const float Width = 0.4f;
+        public void LoadContent(ContentManager content)
         {
-            Texture2D[] textures = new Texture2D[6];
-            textures[0] = texture;
+            textures[0] = content.Load<Texture2D>("Particles");
+            textures[1] = content.Load<Texture2D>("Magnet");
+            textures[2] = content.Load<Texture2D>("FieldButtons");
+            textures[3] = content.Load<Texture2D>("SelectButtons");
 
             float aspectRatio = menuCanvas.AspectRatio;
-            buttons[0] = new Button(new RectangleF(1 / 3f, 0.2f, 0.25f, 0.25f * aspectRatio), ButtonAlign.Centered, textures[0]);
-            buttons[1] = new Button(new RectangleF(2 / 3f, 0.2f, 0.25f, 0.25f * aspectRatio), ButtonAlign.Centered, textures[0]);
+            buttons[0] = new Button(new RectangleF(1 / 4f, 0.2f, Width, Width * aspectRatio), ButtonAlign.Centered, textures[0]);
+            buttons[1] = new Button(new RectangleF(3 / 4f, 0.2f, Width, Width * aspectRatio), ButtonAlign.Centered, textures[1]);
 
-            buttons[2] = new Button(new RectangleF(0.5f, 0.4f, 0.25f, 0.25f * aspectRatio), ButtonAlign.Centered, textures[0]);
+            buttons[2] = new Button(new RectangleF(0.5f, 0.4f, Width, Width * aspectRatio), ButtonAlign.Centered, textures[2]);
 
-            buttons[3] = new Button(new RectangleF(1 / 3f, 0.6f, 0.25f, 0.25f * aspectRatio), ButtonAlign.Centered, textures[0]);
-            buttons[4] = new Button(new RectangleF(2 / 3f, 0.6f, 0.25f, 0.25f * aspectRatio), ButtonAlign.Centered, textures[0]);
+            buttons[3] = new Button(new RectangleF(1 / 4f, 0.6f, Width, Width * aspectRatio), ButtonAlign.Centered, textures[3]);
+            buttons[4] = new Button(new RectangleF(3 / 4f, 0.6f, Width, Width * aspectRatio), ButtonAlign.Centered, textures[3]);
 
-            buttons[5] = new Button(new RectangleF(0.5f, 0.8f, 0.25f, 0.25f * aspectRatio), ButtonAlign.Centered, textures[0]);
+            buttons[5] = new Button(new RectangleF(0.5f, 0.8f, Width, Width * aspectRatio), ButtonAlign.Centered, textures[0]);
 
             buttons[0].ButtonClicked += OnButton1Pressed;
             buttons[1].ButtonClicked += OnButton2Pressed;
@@ -91,10 +96,12 @@ namespace Maxwell_Sim
         public void Draw(GraphicsDevice gd, SpriteBatch sp)
         {
             menuCanvas.BeginDraw(gd, sp, Color.White);
-            for (int i = 0; i < buttons.Length;++i)
-            {
-                buttons[i].Draw(sp, menuCanvas.Draw);
-            }
+            buttons[0].Draw(sp, new Rectangle(0, 0, 16, 16), 0.0f, Vector2.One,SpriteEffects.None, 1.0f, menuCanvas.Draw);
+            buttons[1].Draw(sp, menuCanvas.Draw);
+            buttons[2].Draw(sp, new Rectangle(0, 0, 57, 57), 0.0f, Vector2.One, SpriteEffects.None, 1.0f, menuCanvas.Draw);
+            buttons[3].Draw(sp, new Rectangle(57, 0, 57, 57), 0.0f, Vector2.One, SpriteEffects.None, 1.0f, menuCanvas.Draw);
+            buttons[4].Draw(sp, new Rectangle(57, 57, 57, 57), 0.0f, Vector2.One, SpriteEffects.None, 1.0f, menuCanvas.Draw);
+            buttons[5].Draw(sp, new Rectangle(16, 0, 16, 16), 0.0f, Vector2.One, SpriteEffects.None, 1.0f, menuCanvas.Draw);
             menuCanvas.EndDraw(sp);
 
             gd.SetRenderTarget(null);
