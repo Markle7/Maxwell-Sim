@@ -31,6 +31,7 @@ namespace Maxwell_Sim
         */
         #endregion
 
+        ObjectsMenu menu;
         private void TextInputHandler(object sender, TextInputEventArgs args)
         {
             //var pressedKey = args.Key;
@@ -70,6 +71,7 @@ namespace Maxwell_Sim
             */
             #endregion
 
+            menu = new ObjectsMenu(Window, GraphicsDevice, new RectangleF(0.8f, 0.0f, 0.2f, 1.0f));
             simulationCanvas = new Canvas(Window, GraphicsDevice, new RectangleF(0.25f, 0.25f, 0.5f, 0.5f));
 
             base.Initialize();
@@ -80,10 +82,10 @@ namespace Maxwell_Sim
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Texture2D texture = new Texture2D(GraphicsDevice, 1, 1);
+            texture.SetData<Color>(new Color[]{ Color.Red});
 
-            magnetTexture = Content.Load<Texture2D>("Magnet");
-            button1 = new Button(new RectangleF(0.5f, 0.5f, 0.25f, 0.25f), ButtonAlign.Centered, magnetTexture);
-            button1.ButtonClicked += ClickButton1Handle;
+            menu.LoadContent(texture);
 
             #region Before
             /*
@@ -162,22 +164,15 @@ namespace Maxwell_Sim
             #endregion
 
             InputK.StartKey();
-            if (InputK.IsMouseLeftPressedOnce())
-            {
-                button1.IsClicked(simulationCanvas.LocalRectFromVector2(Mouse.GetState().Position.ToVector2()), Mouse.GetState().LeftButton);
-            }
 
+
+            menu.Update();
            
 
 
             InputK.EndKey();
 
             base.Update(gameTime);
-        }
-
-        public void ClickButton1Handle(object sender, EventArgs e )
-        {
-            Debug.WriteLine("I have recived that the button 1 has been clicked");
         }
 
         /*
@@ -218,15 +213,9 @@ namespace Maxwell_Sim
             */
             #endregion
 
-            simulationCanvas.BeginDraw(GraphicsDevice, spriteBatch, Color.White);
-            button1.Draw(spriteBatch,simulationCanvas.Draw);
-            simulationCanvas.EndDraw(spriteBatch);
+            menu.Draw(GraphicsDevice, spriteBatch);
 
-
-            GraphicsDevice.SetRenderTarget(null);
-            spriteBatch.Begin();
-            spriteBatch.Draw(simulationCanvas.CanvasRT, simulationCanvas.GetGlobalCanvasRect().Location , Color.White);
-            spriteBatch.End();
+            
 
             base.Draw(gameTime);
         }

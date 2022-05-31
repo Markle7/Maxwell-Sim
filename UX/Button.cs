@@ -37,6 +37,7 @@ namespace Maxwell_Sim
 
         public Button(RectangleF rect, ButtonAlign alignment, Texture2D texture)
         {
+
             buttonRect = rect;
             buttonAlign = alignment;
             buttonTexture = texture;
@@ -63,8 +64,8 @@ namespace Maxwell_Sim
         {
             if (leftButton == ButtonState.Pressed)
             {
-                Vector2 origin = buttonAlign.GetOrigin() * buttonRect.Location;
-                mousePos.Offset(origin * 0.5f);
+                Vector2 origin = buttonAlign.GetOrigin() * buttonRect.Size;
+                mousePos.Offset(origin);
                 if (buttonRect.IntersectsWith(mousePos))
                 {
                     OnButtonClicked(EventArgs.Empty);

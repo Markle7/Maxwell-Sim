@@ -13,9 +13,11 @@ namespace Maxwell_Sim
         RenderTarget2D canvasRT;
         GameWindow window;
         GraphicsDevice graphics;
-
+        float windowAspectRatio;
+        float canvasAspectRatio;
         public RenderTarget2D CanvasRT { get => canvasRT; }
         public RectangleF CanvasRectangle { get => canvasRectangle;}
+        public float AspectRatio { get => windowAspectRatio * canvasAspectRatio; }
 
         /// <summary>
         /// Constructor for a canvas
@@ -25,9 +27,10 @@ namespace Maxwell_Sim
         public Canvas(GameWindow window, GraphicsDevice gd, RectangleF canvasBounds)
         {
             this.window = window;
-            this.graphics = gd;
-            this.canvasRectangle = canvasBounds;
-
+            graphics = gd;
+            canvasRectangle = canvasBounds;
+            canvasAspectRatio = canvasRectangle.Width / canvasRectangle.Height;
+            windowAspectRatio = window.ClientBounds.Width / (float)window.ClientBounds.Height;
             window.ClientSizeChanged += OnResize;
             CreateRenderTarget();
         }
@@ -43,8 +46,12 @@ namespace Maxwell_Sim
         {
             //Calculate the canvas world position and size based on the canvasBounds (Normalized coordinates, [0,1]→[0,Width/Height])
             Rectangle bounds = (Rectangle)canvasRectangle.MapRectangle(window.ClientBounds.Size);
-            canvasRT?.Dispose();
-            canvasRT = new RenderTarget2D(graphics, bounds.Width, bounds.Height);
+            if (bounds != Rectangle.Empty)
+            {
+                windowAspectRatio = window.ClientBounds.Width / (float)window.ClientBounds.Height;
+                canvasRT?.Dispose();
+                canvasRT = new RenderTarget2D(graphics, bounds.Width, bounds.Height);
+            }
         }
 
         /// <summary>
