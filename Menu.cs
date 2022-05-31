@@ -105,9 +105,7 @@ namespace Maxwell_Sim
                     if (activeObject != null)
                     {
                         //First validate inputs
-                        float value1 = 0;
-                        float value2 = 0;
-                        if (float.TryParse(textFields[0], out value1))
+                        if (float.TryParse(textFields[0], out float value1))
                         {
                             openedMenu = false;
                             textFields[0] = "";
@@ -118,7 +116,7 @@ namespace Maxwell_Sim
                                 Particle p = (Particle)activeObject;
                                 p.charge = value1;
                             }
-                            if (activeObject.GetType() == typeof(Magnet) && float.TryParse(textFields[1], out value2))
+                            if (activeObject.GetType() == typeof(Magnet) && float.TryParse(textFields[1], out float value2))
                             {
                                 textFields[1] = "";
                                 Magnet m = (Magnet)activeObject;

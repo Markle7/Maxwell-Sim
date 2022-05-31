@@ -108,7 +108,7 @@ namespace Maxwell_Sim
             {
                 if (InputK.IsMouseLeftPressedOnce())
                 {
-                    var a = getMouseObject(); if (a != null)
+                    var a = GetMouseObject(); if (a != null)
                     {
                         if (a.GetType() == typeof(Particle))
                         {
@@ -145,7 +145,7 @@ namespace Maxwell_Sim
                 }
                 if (InputK.IsMouseRightJustReleased())
                 {
-                    var a = getMouseObject();
+                    var a = GetMouseObject();
                     if (a != null)
                     {
                         if (a.GetType() == typeof(Particle))
@@ -163,7 +163,7 @@ namespace Maxwell_Sim
             }
         }
 
-        private Object getMouseObject()
+        private Object GetMouseObject()
         {
             Vector3 mPos = new Vector3(Mouse.GetState().Position.ToVector2(), 0);
             Matrix mTransform;

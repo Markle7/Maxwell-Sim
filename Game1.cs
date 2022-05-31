@@ -9,7 +9,7 @@ namespace Maxwell_Sim
 {
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         #region Before
@@ -33,7 +33,7 @@ namespace Maxwell_Sim
 
         private void TextInputHandler(object sender, TextInputEventArgs args)
         {
-            var pressedKey = args.Key;
+            //var pressedKey = args.Key;
             var character = args.Character;
             Menu.Text += character;
         }
@@ -43,10 +43,13 @@ namespace Maxwell_Sim
             this.IsFixedTimeStep = false;
             this.IsMouseVisible = true;
 
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 800,
+                PreferredBackBufferHeight = 600,
+                GraphicsProfile = GraphicsProfile.HiDef
+            };
+            graphics.ApplyChanges();
 
             Content.RootDirectory = "Content";
 
@@ -158,16 +161,16 @@ namespace Maxwell_Sim
             */
             #endregion
 
-            InputK.startKey();
+            InputK.StartKey();
             if (InputK.IsMouseLeftPressedOnce())
             {
-                bool button1Clicked = button1.IsClicked(simulationCanvas.LocalRectFromVector2(Mouse.GetState().Position.ToVector2()), Mouse.GetState().LeftButton);
+                button1.IsClicked(simulationCanvas.LocalRectFromVector2(Mouse.GetState().Position.ToVector2()), Mouse.GetState().LeftButton);
             }
 
            
 
 
-            InputK.endKey();
+            InputK.EndKey();
 
             base.Update(gameTime);
         }

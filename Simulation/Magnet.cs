@@ -42,8 +42,6 @@ namespace Maxwell_Sim
             rotate = Matrix.CreateTranslation(-origin) * Matrix.CreateRotationZ(angle) * Matrix.CreateTranslation(origin);
         }
 
-
-        Vector4[] colors = new Vector4[500 * 500];
         public void GetForce(GraphicsDevice graphicsDevice, SimInterface sI, SpriteBatch spriteBatch, RenderTarget2D blank)
         {
             BlendState bs = new BlendState();
@@ -60,7 +58,7 @@ namespace Maxwell_Sim
             graphicsDevice.BlendState = bs;
 
             graphicsDevice.SetRenderTarget(blank);
-            graphicsDevice.Clear(Color.TransparentBlack);
+            graphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin();
             spriteBatch.Draw(mField, Vector2.Zero, Color.White);
             spriteBatch.Draw(sI.totalMField, Vector2.Zero, Color.White);
@@ -75,7 +73,7 @@ namespace Maxwell_Sim
         public void CalculateField(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Effect fieldCalc, float timeStep, float c, Texture2D field)
         {
             graphicsDevice.SetRenderTarget(mField);
-            graphicsDevice.Clear(Color.TransparentBlack);
+            graphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, fieldCalc, null);
             fieldCalc.CurrentTechnique = fieldCalc.Techniques["mField"];
             fieldCalc.Parameters["positions"].SetValue(position);

@@ -10,12 +10,12 @@ namespace Maxwell_Sim
         public static MouseState mOldState = Mouse.GetState();
         public static MouseState mNewState;
 
-        static public void startKey()
+        static public void StartKey()
         {
             newState = Keyboard.GetState();
             mNewState = Mouse.GetState();
         }
-        static public void endKey()
+        static public void EndKey()
         {
             oldState = newState;
             mOldState = mNewState;

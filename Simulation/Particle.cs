@@ -51,7 +51,7 @@ namespace Maxwell_Sim
             if (charge != 0)
             {
                 graphicsDevice.SetRenderTarget(eField);
-                graphicsDevice.Clear(Color.TransparentBlack);
+                graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, fieldCalc, null);
                 fieldCalc.CurrentTechnique = fieldCalc.Techniques["eField"];
                 fieldCalc.Parameters["positions"].SetValue(position);
@@ -65,7 +65,7 @@ namespace Maxwell_Sim
                 spriteBatch.End();
 
                 graphicsDevice.SetRenderTarget(mField);
-                graphicsDevice.Clear(Color.TransparentBlack);
+                graphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, fieldCalc, null);
                 fieldCalc.CurrentTechnique = fieldCalc.Techniques["mField"];
                 fieldCalc.CurrentTechnique.Passes[0].Apply();
@@ -85,8 +85,6 @@ namespace Maxwell_Sim
                 new Vector2(size/2, size/2), SpriteEffects.None, 0.0f); 
         }
 
-
-        Vector4[] colors = new Vector4[500 * 500];
         public void GetForce(GraphicsDevice graphicsDevice, SimInterface sI, SpriteBatch spriteBatch, RenderTarget2D blank)
         {
             BlendState bs = new BlendState();
@@ -103,7 +101,7 @@ namespace Maxwell_Sim
             graphicsDevice.BlendState = bs;
 
             graphicsDevice.SetRenderTarget(blank);
-            graphicsDevice.Clear(Color.TransparentBlack);
+            graphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin();
             spriteBatch.Draw(mField, Vector2.Zero, Color.White);
             spriteBatch.Draw(sI.totalMField, Vector2.Zero, Color.White);
